@@ -56,9 +56,22 @@ function SeatRow({ pkg }: { pkg: any }) {
   const [editing, setEditing] = useState(false);
   const [newTotal, setNewTotal] = useState(seatData?.totalSeats ?? 20);
 
+  // Sync state when seatData finishes fetching
+  useEffect(() => {
+    if (seatData?.totalSeats !== undefined) {
+      setNewTotal(seatData.totalSeats);
+    }
+  }, [seatData]);
+
   const handleSave = async () => {
-    await updateTotalSeats(pkg.id, newTotal);
-    setEditing(false);
+    try {
+      await updateTotalSeats(pkg.id, newTotal);
+      setEditing(false);
+      alert(`Seats for "${pkg.title}" updated successfully!`);
+    } catch (err: any) {
+      console.error("Seats update error:", err);
+      alert(`Failed to update seats: ${err.message || err.code || "unknown error"}\n\nPlease check if your Firestore security rules allow writing to "packageSeats" collection.`);
+    }
   };
 
   return (
