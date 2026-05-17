@@ -38,7 +38,13 @@ export default function Login() {
       navigate("/my-bookings");
     } catch (err: any) {
       console.error(err);
-      setError("Google sign-in failed.");
+      if (err.code === "auth/operation-not-allowed") {
+        setError("Google sign-in is not enabled. Please enable Google in Firebase Console → Authentication → Sign-in method.");
+      } else if (err.code === "auth/unauthorized-domain") {
+        setError("This domain is unauthorized. Please add this Vercel domain to Authorized Domains in Firebase Console → Authentication → Settings.");
+      } else {
+        setError(`Google sign-in failed: ${err.message || err.code || "unknown error"}`);
+      }
     }
   };
 
