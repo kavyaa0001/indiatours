@@ -8,7 +8,7 @@ import {
 } from "firebase/firestore";
 import { useAuth } from "@/context/AuthContext";
 import { useSeats, updateTotalSeats } from "@/hooks/useSeats";
-import { packages } from "@/data/packages";
+import { usePackages } from "@/hooks/usePackages";
 import {
   LayoutDashboard, BookOpen, MessageSquare, Star,
   LogOut, CheckCircle2, XCircle, Menu, X,
@@ -51,7 +51,7 @@ function StatusBadge({ status }: { status: string }) {
 }
 
 // Seat Manager Row
-function SeatRow({ pkg }: { pkg: typeof packages[0] }) {
+function SeatRow({ pkg }: { pkg: any }) {
   const { seatData } = useSeats(pkg.id);
   const [editing, setEditing] = useState(false);
   const [newTotal, setNewTotal] = useState(seatData?.totalSeats ?? 20);
@@ -113,6 +113,7 @@ function SeatRow({ pkg }: { pkg: typeof packages[0] }) {
 export default function Admin() {
   const { user, logout } = useAuth();
   const navigate = useNavigate();
+  const { packages } = usePackages();
   const [activeTab, setActiveTab] = useState<TabType>("dashboard");
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [bookings, setBookings] = useState<any[]>([]);

@@ -19,32 +19,38 @@ export function useSeats(packageId: string) {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    if (!packageId) return;
+    if (!packageId) {
+      setLoading(false);
+      return;
+    }
 
     const ref = doc(db, "packageSeats", packageId);
 
-    // Initialize document if it doesn't exist
-    getDoc(ref).then((snap) => {
-      if (!snap.exists()) {
-        setDoc(ref, { totalSeats: DEFAULT_SEATS, bookedSeats: 0 });
-      }
-    });
-
-    // Real-time listener
+    // Real-time listener with automatic default fallback
     const unsubscribe = onSnapshot(ref, (snap) => {
-      if (snap.exists()) {
-        const data = snap.data();
-        const total = data.totalSeats ?? DEFAULT_SEATS;
-        const booked = data.bookedSeats ?? 0;
-        const available = Math.max(0, total - booked);
-        setSeatData({
-          totalSeats: total,
-          bookedSeats: booked,
-          availableSeats: available,
-          isSoldOut: available === 0,
-          percentage: Math.round((booked / total) * 100),
-        });
-      }
+      const data = snap.exists() ? snap.data() : { totalSeats: DEFAULT_SEATS, bookedSeats: 0 };
+      const total = data.totalSeats ?? DEFAULT_SEATS;
+      const booked = data.bookedSeats ?? 0;
+      const available = Math.max(0, total - booked);
+      
+      setSeatData({
+        totalSeats: total,
+        bookedSeats: booked,
+        availableSeats: available,
+        isSoldOut: available === 0,
+        percentage: Math.round((booked / total) * 100),
+      });
+      setLoading(false);
+    }, (error) => {
+      console.error("Error listening to seats:", error);
+      // Fallback on permission/network error
+      setSeatData({
+        totalSeats: DEFAULT_SEATS,
+        bookedSeats: 0,
+        availableSeats: DEFAULT_SEATS,
+        isSoldOut: false,
+        percentage: 0,
+      });
       setLoading(false);
     });
 
@@ -62,15 +68,27 @@ export async function bookSeats(packageId: string, count: number): Promise<boole
     let success = false;
     await runTransaction(db, async (transaction) => {
       const snap = await transaction.get(ref);
-      const data = snap.data() ?? { totalSeats: DEFAULT_SEATS, bookedSeats: 0 };
-      const available = data.totalSeats - data.bookedSeats;
+      
+      if (!snap.exists()) {
+        // Document does not exist yet; initialize with default seats minus booked amount
+        if (DEFAULT_SEATS < count) {
+          throw new Error("Not enough seats available");
+        }
+        transaction.set(ref, { totalSeats: DEFAULT_SEATS, bookedSeats: count });
+        success = true;
+      } else {
+        const data = snap.data();
+        const total = data.totalSeats ?? DEFAULT_SEATS;
+        const booked = data.bookedSeats ?? 0;
+        const available = total - booked;
 
-      if (available < count) {
-        throw new Error("Not enough seats available");
+        if (available < count) {
+          throw new Error("Not enough seats available");
+        }
+
+        transaction.update(ref, { bookedSeats: increment(count) });
+        success = true;
       }
-
-      transaction.update(ref, { bookedSeats: increment(count) });
-      success = true;
     });
     return success;
   } catch (err) {
@@ -82,5 +100,5 @@ export async function bookSeats(packageId: string, count: number): Promise<boole
 // Admin: update total seats for a package
 export async function updateTotalSeats(packageId: string, totalSeats: number) {
   const ref = doc(db, "packageSeats", packageId);
-  await updateDoc(ref, { totalSeats });
+  await setDoc(ref, { totalSeats }, { merge: true });
 }
