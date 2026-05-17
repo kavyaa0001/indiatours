@@ -138,19 +138,19 @@ export default function ReviewSection({ packageId, packageTitle }: ReviewSection
   }));
 
   return (
-    <section className="mt-24 px-8 md:px-24 max-w-[1600px] mx-auto pb-24">
-      <div className="flex items-center gap-8 mb-16">
-        <h2 className="text-4xl font-editorial italic">Traveler Reviews</h2>
+    <section className="mt-16 md:mt-24 px-4 sm:px-8 md:px-24 max-w-[1600px] mx-auto pb-16 md:pb-24">
+      <div className="flex items-center gap-4 sm:gap-8 mb-8 sm:mb-16">
+        <h2 className="text-3xl sm:text-4xl font-editorial italic">Traveler Reviews</h2>
         <div className="h-[1px] flex-1 bg-white/10" />
         <span className="text-white/30 text-sm">{reviews.length} review{reviews.length !== 1 ? "s" : ""}</span>
       </div>
 
-      <div className="grid lg:grid-cols-3 gap-16">
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 lg:gap-16">
         {/* Left: Summary + Form */}
-        <div className="space-y-12">
+        <div className="space-y-8 sm:space-y-12">
           {/* Rating Summary */}
           {reviews.length > 0 && (
-            <div className="bg-white/5 border border-white/10 p-8">
+            <div className="bg-white/5 border border-white/10 p-6 sm:p-8">
               <div className="text-center mb-8">
                 <p className="text-7xl font-display text-lime-accent">{avgRating.toFixed(1)}</p>
                 <StarRating value={Math.round(avgRating)} readonly size="md" />
@@ -175,7 +175,7 @@ export default function ReviewSection({ packageId, packageTitle }: ReviewSection
           )}
 
           {/* Review Form */}
-          <div className="bg-white/5 border border-white/10 p-8">
+          <div className="bg-white/5 border border-white/10 p-6 sm:p-8">
             <h3 className="text-xl font-editorial italic mb-6">
               {user ? "Write a Review" : "Sign in to Review"}
             </h3>
@@ -262,7 +262,7 @@ export default function ReviewSection({ packageId, packageTitle }: ReviewSection
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ delay: idx * 0.05 }}
-                    className="bg-white/5 border border-white/10 p-8 hover:border-white/20 transition-colors"
+                    className="bg-white/5 border border-white/10 p-6 sm:p-8 hover:border-white/20 transition-colors"
                   >
                     <div className="flex items-start justify-between gap-4 mb-4">
                       <div className="flex items-center gap-4">

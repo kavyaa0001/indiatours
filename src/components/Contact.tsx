@@ -43,7 +43,7 @@ export default function Contact() {
 
   return (
     <>
-      <section id="contacts" className="relative min-h-screen w-full flex items-center px-8 md:px-24 py-32 overflow-hidden">
+      <section id="contacts" className="relative min-h-screen w-full flex items-center px-4 sm:px-8 md:px-24 py-16 md:py-32 overflow-hidden">
         {/* Cinematic Background */}
         <div className="absolute inset-0 z-0">
           <img
@@ -59,13 +59,13 @@ export default function Contact() {
           initial={{ opacity: 0, x: -100 }}
           whileInView={{ opacity: 1, x: 0 }}
           viewport={{ once: true }}
-          className="relative z-10 w-full max-w-xl frosted-glass p-12 space-y-12"
+          className="relative z-10 w-full max-w-xl frosted-glass p-6 sm:p-10 md:p-12 space-y-8 sm:space-y-12"
         >
           <div className="space-y-4">
-            <h2 className="text-4xl md:text-5xl font-editorial italic leading-tight">
+            <h2 className="text-3xl sm:text-4xl md:text-5xl font-editorial italic leading-tight">
               Want to join us, but still have questions?
             </h2>
-            <p className="text-sm tracking-[0.4em] uppercase text-kimono-white/50">
+            <p className="text-xs sm:text-sm tracking-[0.4em] uppercase text-kimono-white/50">
               Leave a request
             </p>
           </div>
@@ -137,14 +137,14 @@ export default function Contact() {
       </section>
 
       {/* Footer */}
-      <footer className="bg-mist-black py-16 px-8 md:px-24 border-t border-white/5">
-        <div className="flex flex-col md:row gap-12 justify-between items-center md:items-start">
+      <footer className="bg-mist-black py-16 px-4 sm:px-8 md:px-24 border-t border-white/5">
+        <div className="flex flex-col md:flex-row gap-8 sm:gap-12 justify-between items-center md:items-start">
           <div className="flex items-center gap-2">
             <Globe className="w-5 h-5 text-lime-accent" />
             <span className="font-display text-xl tracking-[0.2em] text-kimono-white">INDIA TOURS</span>
           </div>
 
-          <div className="flex gap-12 text-xs uppercase tracking-[0.2em] text-kimono-white/50">
+          <div className="flex flex-wrap justify-center gap-6 sm:gap-12 text-xs uppercase tracking-[0.2em] text-kimono-white/50">
             {["Home", "About", "Included", "Contacts"].map((item) => (
               <a key={item} href="#" className="hover:text-lime-accent transition-colors">{item}</a>
             ))}

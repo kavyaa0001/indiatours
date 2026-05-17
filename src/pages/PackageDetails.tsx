@@ -118,12 +118,12 @@ export default function PackageDetails() {
         </nav>
 
         {/* Hero Title */}
-        <div className="absolute bottom-0 left-0 w-full p-8 md:p-24 z-10">
+        <div className="absolute bottom-0 left-0 w-full p-6 sm:p-8 md:p-24 z-10">
           <motion.h1 
             initial={{ y: 50, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
             transition={{ delay: 0.2 }}
-            className="text-7xl md:text-9xl font-display tracking-tight uppercase"
+            className="text-4xl sm:text-6xl md:text-9xl font-display tracking-tight uppercase leading-tight"
           >
             {packageData.title}
           </motion.h1>
@@ -131,7 +131,7 @@ export default function PackageDetails() {
             initial={{ y: 20, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
             transition={{ delay: 0.4 }}
-            className="flex items-center gap-6 mt-6 text-white/70 uppercase tracking-widest text-sm"
+            className="flex items-center gap-4 sm:gap-6 mt-4 sm:mt-6 text-white/70 uppercase tracking-widest text-xs sm:text-sm"
           >
             <div className="flex items-center gap-2">
               <MapPin className="w-4 h-4 text-lime-accent" />
@@ -146,13 +146,16 @@ export default function PackageDetails() {
       </section>
 
       {/* Main Content Area */}
-      <section className="px-8 md:px-24 max-w-[1600px] mx-auto mt-12 grid lg:grid-cols-3 gap-12 lg:gap-24 items-start">
+      <section className="px-4 sm:px-8 md:px-24 max-w-[1600px] mx-auto mt-8 md:mt-12 grid grid-cols-1 lg:grid-cols-3 gap-8 lg:gap-24 items-start">
         
         {/* Left Column: Details & Tabs */}
         <div className="lg:col-span-2">
           
           {/* Tabs Navigation */}
-          <div className="flex flex-wrap gap-8 border-b border-white/10 pb-4 mb-12">
+          <div 
+            className="flex gap-6 md:gap-8 border-b border-white/10 pb-4 mb-8 md:mb-12 overflow-x-auto scrollbar-none flex-nowrap whitespace-nowrap"
+            style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}
+          >
             {[
               { id: 'overview', icon: Map, label: 'Overview' },
               { id: 'itinerary', icon: CalendarDays, label: 'Itinerary' },
@@ -162,7 +165,7 @@ export default function PackageDetails() {
               <button
                 key={tab.id}
                 onClick={() => setActiveTab(tab.id as TabType)}
-                className={`flex items-center gap-2 text-sm uppercase tracking-widest pb-4 -mb-[17px] transition-colors border-b-2 ${
+                className={`flex items-center gap-2 text-sm uppercase tracking-widest pb-4 -mb-[17px] transition-colors border-b-2 shrink-0 ${
                   activeTab === tab.id ? 'border-lime-accent text-lime-accent' : 'border-transparent text-white/50 hover:text-white/80'
                 }`}
               >

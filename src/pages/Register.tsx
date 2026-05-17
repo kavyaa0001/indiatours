@@ -53,7 +53,7 @@ export default function Register() {
       </div>
 
       {/* Back Button */}
-      <Link to="/" className="absolute top-8 left-8 z-10 flex items-center gap-2 group text-white/50 hover:text-white transition-colors">
+      <Link to="/" className="absolute top-4 left-4 sm:top-8 sm:left-8 z-10 flex items-center gap-2 group text-white/50 hover:text-white transition-colors">
         <ArrowLeft className="w-4 h-4 group-hover:text-lime-accent transition-colors" />
         <span className="text-xs uppercase tracking-widest">Home</span>
       </Link>
@@ -61,16 +61,16 @@ export default function Register() {
       <motion.div
         initial={{ opacity: 0, y: 30 }}
         animate={{ opacity: 1, y: 0 }}
-        className="relative z-10 w-full max-w-md"
+        className="relative z-10 w-full max-w-md mt-16 sm:mt-0"
       >
         {/* Header */}
-        <div className="text-center mb-12">
+        <div className="text-center mb-8 sm:mb-12">
           <p className="text-lime-accent text-xs uppercase tracking-[0.4em] mb-4">India Tours</p>
-          <h1 className="text-5xl font-display tracking-tight">Create Account</h1>
+          <h1 className="text-3xl sm:text-5xl font-display tracking-tight">Create Account</h1>
           <p className="text-white/40 mt-4 text-sm">Join us for your divine journey</p>
         </div>
 
-        <div className="bg-white/5 backdrop-blur-md border border-white/10 p-10">
+        <div className="bg-white/5 backdrop-blur-md border border-white/10 p-6 sm:p-10">
           <form onSubmit={handleSubmit} className="space-y-6">
             {/* Name */}
             <div className="relative">

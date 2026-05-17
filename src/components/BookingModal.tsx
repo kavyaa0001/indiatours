@@ -104,13 +104,14 @@ export default function BookingModal({
             animate={{ opacity: 1, scale: 1, y: 0 }}
             exit={{ opacity: 0, scale: 0.95, y: 20 }}
             transition={{ type: "spring", stiffness: 300, damping: 30 }}
-            className="relative w-full max-w-lg bg-[#0a0a0a] border border-white/10 p-10 rounded-sm"
+            className="relative w-full max-w-lg bg-[#0a0a0a] border border-white/10 p-6 sm:p-10 rounded-sm overflow-y-auto max-h-[90vh] scrollbar-none"
+            style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}
             onClick={(e) => e.stopPropagation()}
           >
             {/* Close Button */}
             <button
               onClick={handleClose}
-              className="absolute top-6 right-6 text-white/30 hover:text-white transition-colors"
+              className="absolute top-4 right-4 sm:top-6 sm:right-6 text-white/30 hover:text-white transition-colors"
             >
               <X className="w-5 h-5" />
             </button>

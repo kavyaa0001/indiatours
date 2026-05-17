@@ -70,41 +70,41 @@ export default function MyBookings() {
   return (
     <main className="min-h-screen bg-mist-black text-kimono-white pb-24">
       {/* Header */}
-      <nav className="sticky top-0 z-50 bg-mist-black/80 backdrop-blur-md border-b border-white/5 px-8 md:px-24 py-6 flex items-center justify-between">
+      <nav className="sticky top-0 z-50 bg-mist-black/80 backdrop-blur-md border-b border-white/5 px-4 sm:px-8 md:px-24 py-4 sm:py-6 flex items-center justify-between">
         <Link to="/" className="flex items-center gap-2 group text-white/50 hover:text-white transition-colors">
           <ArrowLeft className="w-4 h-4 group-hover:text-lime-accent transition-colors" />
           <span className="text-xs uppercase tracking-widest">Home</span>
         </Link>
-        <span className="font-display text-xl tracking-[0.2em] text-lime-accent">INDIA TOURS</span>
+        <span className="font-display text-lg sm:text-xl tracking-[0.2em] text-lime-accent">INDIA TOURS</span>
         <button
           onClick={handleLogout}
           className="flex items-center gap-2 text-white/40 hover:text-red-400 transition-colors text-sm"
         >
           <LogOut className="w-4 h-4" />
-          <span className="hidden md:inline uppercase tracking-widest text-xs">Sign Out</span>
+          <span className="hidden sm:inline uppercase tracking-widest text-xs">Sign Out</span>
         </button>
       </nav>
 
-      <section className="px-8 md:px-24 max-w-5xl mx-auto mt-16">
+      <section className="px-4 sm:px-8 md:px-24 max-w-5xl mx-auto mt-8 sm:mt-16">
         {/* Welcome */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          className="mb-16"
+          className="mb-8 sm:mb-16"
         >
           <p className="text-lime-accent text-xs uppercase tracking-[0.4em] mb-4">Welcome back</p>
-          <h1 className="text-5xl md:text-7xl font-display tracking-tight">
+          <h1 className="text-3xl sm:text-5xl md:text-7xl font-display tracking-tight leading-tight">
             {user?.displayName?.split(" ")[0] || "Traveler"}
           </h1>
-          <p className="text-white/40 mt-4">{user?.email}</p>
+          <p className="text-white/40 mt-4 text-sm">{user?.email}</p>
         </motion.div>
 
         {/* Bookings */}
         <div>
-          <div className="flex items-center gap-6 mb-10">
-            <h2 className="text-2xl font-editorial italic">My Bookings</h2>
+          <div className="flex items-center gap-4 sm:gap-6 mb-8 sm:mb-10">
+            <h2 className="text-xl sm:text-2xl font-editorial italic">My Bookings</h2>
             <div className="h-[1px] flex-1 bg-white/10" />
-            <span className="text-white/30 text-sm">{bookings.length} trip{bookings.length !== 1 ? "s" : ""}</span>
+            <span className="text-white/30 text-xs sm:text-sm">{bookings.length} trip{bookings.length !== 1 ? "s" : ""}</span>
           </div>
 
           {loading ? (
@@ -116,10 +116,10 @@ export default function MyBookings() {
             <motion.div
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
-              className="text-center py-24 border border-white/5"
+              className="text-center py-24 border border-white/5 px-4"
             >
               <Package className="w-12 h-12 text-white/10 mx-auto mb-6" />
-              <h3 className="text-2xl font-editorial italic text-white/40 mb-4">No trips yet</h3>
+              <h3 className="text-xl sm:text-2xl font-editorial italic text-white/40 mb-4">No trips yet</h3>
               <p className="text-white/30 text-sm mb-8">Your booked journeys will appear here</p>
               <Link
                 to="/packages"
@@ -136,17 +136,17 @@ export default function MyBookings() {
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: idx * 0.1 }}
-                  className="bg-white/5 border border-white/10 p-8 hover:border-white/20 transition-colors"
+                  className="bg-white/5 border border-white/10 p-6 sm:p-8 hover:border-white/20 transition-colors"
                 >
                   <div className="flex flex-col md:flex-row md:items-center justify-between gap-6">
                     <div className="space-y-3">
-                      <div className="flex items-center gap-3">
-                        <h3 className="text-2xl font-editorial italic">{booking.packageTitle}</h3>
-                        <span className={`text-xs uppercase tracking-widest px-3 py-1 border ${statusColors[booking.status] || statusColors.pending}`}>
+                      <div className="flex flex-wrap items-center gap-3">
+                        <h3 className="text-xl sm:text-2xl font-editorial italic">{booking.packageTitle}</h3>
+                        <span className={`text-[10px] sm:text-xs uppercase tracking-widest px-3 py-1 border ${statusColors[booking.status] || statusColors.pending}`}>
                           {booking.status}
                         </span>
                       </div>
-                      <div className="flex flex-wrap gap-6 text-white/50 text-sm">
+                      <div className="flex flex-wrap gap-4 sm:gap-6 text-white/50 text-xs sm:text-sm">
                         <div className="flex items-center gap-2">
                           <CalendarDays className="w-4 h-4 text-lime-accent" />
                           <span>{booking.travelDate}</span>
@@ -165,9 +165,9 @@ export default function MyBookings() {
                         </div>
                       </div>
                     </div>
-                    <div className="text-right">
-                      <p className="text-xs uppercase tracking-widest text-white/30 mb-1">Total Amount</p>
-                      <p className="font-display text-3xl text-lime-accent">
+                    <div className="text-left md:text-right border-t border-white/5 pt-4 md:border-none md:pt-0">
+                      <p className="text-[10px] sm:text-xs uppercase tracking-widest text-white/30 mb-1">Total Amount</p>
+                      <p className="font-display text-2xl sm:text-3xl text-lime-accent">
                         ₹{booking.totalAmount?.toLocaleString("en-IN")}
                       </p>
                     </div>
